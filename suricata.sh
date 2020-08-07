@@ -47,12 +47,16 @@ install_suricata() {
 	# stop suricata
 	sudo systemctl stop suricata
 
-	# config suricata
+	# config suricata and schedule updating the signature every Monday at 8 AM
 	sudo mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.bak
 	sudo cp conf/suricata.yaml /etc/suricata/
 	sed -i "s/CHANGE-IFACE/$LIFACE/g" /etc/suricata/suricata.yaml
 	sudo rm -rf /etc/suricata/rules/*
 	sudo cp rules/* /etc/suricata/rules/
+	sudo suricata-update
+	cp /var/lib/suricata/rules/suricata.rules /etc/suricata/rules/
+	(sudo crontab -l ; sudo echo "00 08 * * 1 sudo suricata-update")| sudo crontab -
+
 	
 	# enable suricata at startup
 	sudo systemctl enable suricata
