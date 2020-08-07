@@ -34,15 +34,15 @@ check_iface() {
 install_suricata() {
 	
 	# install dependencies
-	sudo apt-get -y install libpcre3 libpcre3-dbg libpcre3-dev build-essential autoconf automake libtool libpcap-dev \
+	sudo apt -y install libpcre3 libpcre3-dbg libpcre3-dev build-essential autoconf automake libtool libpcap-dev \
 	libnet1-dev libyaml-0-2 libyaml-dev zlib1g zlib1g-dev libmagic-dev libcap-ng-dev libjansson4 libjansson-dev pkg-config \
 	rustc cargo libnetfilter-queue-dev geoip-bin geoip-database geoipupdate apt-transport-https libnetfilter-queue-dev \
         libnetfilter-queue1 libnfnetlink-dev tcpreplay
 
 	# install with ubuntu package
 	sudo add-apt-repository -y ppa:oisf/suricata-stable
-	sudo apt-get -y update
-	sudo apt-get -y install suricata suricata-dbg 
+	sudo apt -y update
+	sudo apt -y install suricata suricata-dbg 
 	
 	# stop suricata
 	sudo systemctl stop suricata
