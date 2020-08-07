@@ -54,7 +54,7 @@ install_suricata() {
 	sudo rm -rf /etc/suricata/rules/*
 	sudo cp rules/* /etc/suricata/rules/
 	sudo suricata-update
-	cp /var/lib/suricata/rules/suricata.rules /etc/suricata/rules/
+	sudo cp /var/lib/suricata/rules/suricata.rules /etc/suricata/rules/
 	(sudo crontab -l ; sudo echo "00 08 * * 1 sudo suricata-update")| sudo crontab -
 
 	
