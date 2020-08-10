@@ -13,23 +13,6 @@ check_update() {
 	sudo apt-get -y update
 }
 
-check_iface() {
-	
-	IfaceAll=$(ip --oneline link show up | grep -v "lo" | awk '{print $2}' | cut -d':' -f1 | cut -d'@' -f1)
-	CountIface=$(wc -l <<< "${IfaceAll}")
-	if [[ $CountIface -eq 1 ]]; then
-		LIFACE=$IfaceAll
-	else
-		for iface in $IfaceAll
-		do 
-			echo "Available interface: "$iface
-		done
-		echo ""
-	
-		echo "Which Interface you want suricata to Listen(captured)?"
-		read -p "Interface: " LIFACE
-	fi
-}
 
 install_suricata() {
 	
@@ -51,7 +34,7 @@ install_suricata() {
 	# config suricata and schedule updating the signature every Monday at 8 AM
 	sudo mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.bak
 	sudo cp conf/suricata.yaml /etc/suricata/
-	sed -i "s/CHANGE-IFACE/$LIFACE/g" /etc/suricata/suricata.yaml
+	sed -i "s/CHANGE-IFACE/eth0/g" /etc/suricata/suricata.yaml
 	sudo rm -rf /etc/suricata/rules/*
 	sudo cp rules/* /etc/suricata/rules/
 	(sudo crontab -l ; sudo echo "00 08 * * 1 sudo suricata-update")| sudo crontab -
@@ -73,9 +56,6 @@ main() {
 
 	# update
 	check_update
-
-	# check interface
-	check_iface
 
 	# install suricata 
 	install_suricata	
