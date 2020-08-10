@@ -37,8 +37,7 @@ install_suricata() {
 	sed -i "s/CHANGE-IFACE/eth0/g" /etc/suricata/suricata.yaml
 	sudo rm -rf /etc/suricata/rules/*
 	sudo cp rules/* /etc/suricata/rules/
-	( crontab -l ; sudo echo "00 08 * * 1 sudo suricata-update")| sudo crontab - || true
-	( crontab -l ; sudo echo "00 09 * * 1 sudo cp /var/lib/suricata/rules/suricata.rules /etc/suricata/rules/")| sudo crontab - || true
+
 
 	
 	# enable suricata at startup
