@@ -29,7 +29,8 @@ install_suricata() {
 	sudo apt -y install suricata suricata-dbg 
 	
 	# stop suricata
-	sudo systemctl stop suricata
+	#sudo systemctl stop suricata
+	sudo /etc/init.d/suricata start
 
 	# config suricata and schedule updating the signature every Monday at 8 AM
 	sudo mv /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.bak
@@ -43,10 +44,11 @@ install_suricata() {
 
 	
 	# enable suricata at startup
-	sudo systemctl enable suricata
+	#sudo systemctl enable suricata
 
 	# start suricata
-	sudo systemctl start suricata
+	#sudo systemctl start suricata
+	sudo /etc/init.d/suricata start
 
 }
 
