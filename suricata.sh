@@ -38,8 +38,8 @@ install_suricata() {
 	sed -i "s/CHANGE-IFACE/eth0/g" /etc/suricata/suricata.yaml
 	sudo rm -rf /etc/suricata/rules/*
 	sudo cp rules/* /etc/suricata/rules/
-	( sudo crontab -l ; sudo echo "00 08 * * 1 sudo suricata-update")| sudo crontab - || true
-	( sudo crontab -l ; sudo echo "00 09 * * 1 sudo cp /var/lib/suricata/rules/suricata.rules /etc/suricata/rules/")| sudo crontab - || true
+	( sudo crontab -l ; sudo echo "00 08 * * 1 sudo suricata-update || true")| sudo crontab - || true
+	( sudo crontab -l ; sudo echo "00 09 * * 1 sudo cp /var/lib/suricata/rules/suricata.rules /etc/suricata/rules/ || true")| sudo crontab - || true
 
 
 	
